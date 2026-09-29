@@ -40,17 +40,21 @@
 ---
 
 ## Section 4: Deployed and Presentation Information
-- **Deployment Platform:** [Write your deployment platform here, e.g., Render]
-- **Live Deployment URL:** [Provide your live deployment site URL here]
-- **Video Presentation Link:** [Provide an accessible link to your 5–7 minute video presentation]
+- **Deployment Platform:** Render
+- **Live Deployment URL:** https://project01-ai-search-kh19.onrender.com
+- **Video Presentation Link:** https://youtu.be/O1bRwwh3vZM
 
 ---
 
 ## Section 5: Discussion
 - **Which search algorithm is best for this route finding problem?** 
-    A* is the best. It found the shortest route (83.08 km), and it did it by checking only 13 places. UCS also found the shortest route, but it had to check 21 places. A* is faster because it uses a smart guess: the straight-line distance to the goal. That guess is never longer than the real road distance, so A* never picks a wrong "best" route. The other algorithms found longer routes: 89.48 km for BFS, IDS, and Greedy, and 112.39 km for DFS.
+    A* is the best choice for this problem. It found the shortest route, which was 83.08 km, and only checked 13 places. UCS also found the shortest route, but it checked 21 places. A* is faster because it uses the straight-line distance to guess which place is closer to the goal. The other algorithms found longer routes: 89.48 km for BFS, IDS, and Greedy, and 112.39 km for DFS.
 - **Search Efficiency (Nodes expanded/time taken comparison):** 
-    Greedy checked the fewest places (5), then DFS (7). But both gave worse routes, so being quick did not make them better. Among the algorithms that found the shortest route, A* checked 13 places and UCS checked 21, so A* did less work. IDS checked the most places (61) because it starts over again and again each time it goes one level deeper. For time, all six algorithms were very fast, under 0.02 milliseconds. DFS and Greedy were the quickest, and UCS, A*, and IDS were a bit slower. The graph only has 22 places, so the time differences are tiny. The number of places checked is a better way to compare them.        
+    Greedy checked the fewest places (5) and DFS checked 7, but they did not find the shortest route. A* checked 13 places, while UCS checked 21, so A* did less work while still finding the shortest route. IDS checked the most places (61) because it repeats its search at each level.
+
+    All six algorithms were very fast, taking less than 0.02 milliseconds. DFS and Greedy were the fastest, but the difference was very small. Since the graph only has 22 places, the number of places checked is a better way to compare the algorithms.    
 - **Link the idea of search algorithm to today Generative AI.** 
-    Generative AI also uses search. When an AI writes a sentence, it is picking the next word out of thousands of choices, and it has to search for a good sequence of words. One method, called beam search, keeps only the few best options at each step, a bit like how A* and Greedy focus on the most promising places. Some AI models also try several lines of thinking and go back if one fails, which is like DFS and BFS. Game AIs like AlphaGo use a scoring guess to decide which moves to look at first, which is the same job the straight-line distance does in A*. In all of these, a better guess means less wasted work.
+    Generative AI also uses search when it creates text. For example, when AI writes a sentence, it chooses the next word from many possible words. Beam search keeps a few of the best choices instead of checking every possible choice. This is similar to how A* and Greedy focus on the options that look most promising.
+
+
 
