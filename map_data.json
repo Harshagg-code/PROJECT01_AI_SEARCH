@@ -1,0 +1,266 @@
+{
+  "nodes": [
+    {
+      "name": "Chicago Loop, Chicago, IL",
+      "lat": 41.8816746,
+      "lon": -87.6321072
+    },
+    {
+      "name": "Wicker Park, Chicago, IL",
+      "lat": 41.9115003,
+      "lon": -87.6774749
+    },
+    {
+      "name": "Hyde Park, Chicago, IL",
+      "lat": 41.7944464,
+      "lon": -87.5939244
+    },
+    {
+      "name": "Lincoln Park, Chicago, IL",
+      "lat": 41.9324916,
+      "lon": -87.6391945
+    },
+    {
+      "name": "Pilsen, Chicago, IL",
+      "lat": 41.8570402,
+      "lon": -87.6618834
+    },
+    {
+      "name": "Evanston, IL",
+      "lat": 42.0693991,
+      "lon": -87.682932
+    },
+    {
+      "name": "Oak Park, IL",
+      "lat": 41.8878145,
+      "lon": -87.7887615
+    },
+    {
+      "name": "Cicero, IL",
+      "lat": 41.8455398,
+      "lon": -87.7540199
+    },
+    {
+      "name": "Skokie, IL",
+      "lat": 42.0262972,
+      "lon": -87.7521069
+    },
+    {
+      "name": "Naperville, IL",
+      "lat": 41.7728699,
+      "lon": -88.1479278
+    },
+    {
+      "name": "Aurora, IL",
+      "lat": 41.7571701,
+      "lon": -88.3147539
+    },
+    {
+      "name": "Elgin, IL",
+      "lat": 42.03726,
+      "lon": -88.2810994
+    },
+    {
+      "name": "Schaumburg, IL",
+      "lat": 42.0333608,
+      "lon": -88.083406
+    },
+    {
+      "name": "Arlington Heights, IL",
+      "lat": 42.0811563,
+      "lon": -87.9802164
+    },
+    {
+      "name": "Des Plaines, IL",
+      "lat": 42.0415823,
+      "lon": -87.8873916
+    },
+    {
+      "name": "Berwyn, IL",
+      "lat": 41.8505874,
+      "lon": -87.7936685
+    },
+    {
+      "name": "Downers Grove, IL",
+      "lat": 41.7936822,
+      "lon": -88.0102281
+    },
+    {
+      "name": "Joliet, IL",
+      "lat": 41.5263603,
+      "lon": -88.0840212
+    },
+    {
+      "name": "Waukegan, IL",
+      "lat": 42.3602273,
+      "lon": -87.8318164
+    },
+    {
+      "name": "Elmhurst, IL",
+      "lat": 41.8994745,
+      "lon": -87.9403418
+    },
+    {
+      "name": "Orland Park, IL",
+      "lat": 41.630663,
+      "lon": -87.8536288
+    },
+    {
+      "name": "Tinley Park, IL",
+      "lat": 41.5733669,
+      "lon": -87.7844944
+    }
+  ],
+  "edges": [
+    {
+      "from": "Chicago Loop, Chicago, IL",
+      "to": "Wicker Park, Chicago, IL",
+      "distance_km": 6.07
+    },
+    {
+      "from": "Chicago Loop, Chicago, IL",
+      "to": "Hyde Park, Chicago, IL",
+      "distance_km": 12.43
+    },
+    {
+      "from": "Chicago Loop, Chicago, IL",
+      "to": "Lincoln Park, Chicago, IL",
+      "distance_km": 5.91
+    },
+    {
+      "from": "Chicago Loop, Chicago, IL",
+      "to": "Pilsen, Chicago, IL",
+      "distance_km": 5.38
+    },
+    {
+      "from": "Lincoln Park, Chicago, IL",
+      "to": "Wicker Park, Chicago, IL",
+      "distance_km": 5.81
+    },
+    {
+      "from": "Lincoln Park, Chicago, IL",
+      "to": "Evanston, IL",
+      "distance_km": 17.02
+    },
+    {
+      "from": "Wicker Park, Chicago, IL",
+      "to": "Oak Park, IL",
+      "distance_km": 12.29
+    },
+    {
+      "from": "Pilsen, Chicago, IL",
+      "to": "Cicero, IL",
+      "distance_km": 8.7
+    },
+    {
+      "from": "Pilsen, Chicago, IL",
+      "to": "Berwyn, IL",
+      "distance_km": 11.36
+    },
+    {
+      "from": "Hyde Park, Chicago, IL",
+      "to": "Orland Park, IL",
+      "distance_km": 34.34
+    },
+    {
+      "from": "Oak Park, IL",
+      "to": "Cicero, IL",
+      "distance_km": 7.64
+    },
+    {
+      "from": "Oak Park, IL",
+      "to": "Elmhurst, IL",
+      "distance_km": 16.97
+    },
+    {
+      "from": "Cicero, IL",
+      "to": "Berwyn, IL",
+      "distance_km": 3.92
+    },
+    {
+      "from": "Berwyn, IL",
+      "to": "Downers Grove, IL",
+      "distance_km": 23.05
+    },
+    {
+      "from": "Evanston, IL",
+      "to": "Skokie, IL",
+      "distance_km": 9.72
+    },
+    {
+      "from": "Skokie, IL",
+      "to": "Des Plaines, IL",
+      "distance_km": 11.9
+    },
+    {
+      "from": "Des Plaines, IL",
+      "to": "Arlington Heights, IL",
+      "distance_km": 9.26
+    },
+    {
+      "from": "Arlington Heights, IL",
+      "to": "Schaumburg, IL",
+      "distance_km": 13.43
+    },
+    {
+      "from": "Schaumburg, IL",
+      "to": "Elgin, IL",
+      "distance_km": 23.33
+    },
+    {
+      "from": "Elmhurst, IL",
+      "to": "Schaumburg, IL",
+      "distance_km": 25.51
+    },
+    {
+      "from": "Elmhurst, IL",
+      "to": "Downers Grove, IL",
+      "distance_km": 17.15
+    },
+    {
+      "from": "Downers Grove, IL",
+      "to": "Naperville, IL",
+      "distance_km": 12.31
+    },
+    {
+      "from": "Naperville, IL",
+      "to": "Aurora, IL",
+      "distance_km": 14.98
+    },
+    {
+      "from": "Aurora, IL",
+      "to": "Elgin, IL",
+      "distance_km": 34.91
+    },
+    {
+      "from": "Downers Grove, IL",
+      "to": "Orland Park, IL",
+      "distance_km": 29.89
+    },
+    {
+      "from": "Orland Park, IL",
+      "to": "Tinley Park, IL",
+      "distance_km": 12.26
+    },
+    {
+      "from": "Tinley Park, IL",
+      "to": "Joliet, IL",
+      "distance_km": 30.45
+    },
+    {
+      "from": "Naperville, IL",
+      "to": "Joliet, IL",
+      "distance_km": 30.98
+    },
+    {
+      "from": "Skokie, IL",
+      "to": "Waukegan, IL",
+      "distance_km": 43.42
+    },
+    {
+      "from": "Arlington Heights, IL",
+      "to": "Waukegan, IL",
+      "distance_km": 48.37
+    }
+  ]
+}

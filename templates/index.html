@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Intelligent Search Visualizer — Chicago Metro</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+        }
+
+        #sidebar {
+            width: 340px;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            background: #f7f7f7;
+            border-right: 1px solid #ddd;
+        }
+
+        #map {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        select,
+        button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 4px;
+            font-size: 14px;
+        }
+
+        button {
+            margin-top: 16px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 12px;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+        }
+
+        #result h3 {
+            margin-top: 0;
+        }
+
+        .stat {
+            margin: 6px 0;
+        }
+
+        #error {
+            color: #b91c1c;
+            margin-top: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="sidebar">
+        <h2>Search Visualizer</h2>
+
+        <label for="start">Start Location</label>
+        <select id="start">
+            {% for loc in locations %}
+            <option value="{{ loc }}">{{ loc }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="goal">Goal Location</label>
+        <select id="goal">
+            {% for loc in locations %}
+            <option value="{{ loc }}">{{ loc }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="algorithm">Algorithm</label>
+        <select id="algorithm">
+            <option value="bfs">Breadth-First Search</option>
+            <option value="dfs">Depth-First Search</option>
+            <option value="ucs">Uniform-Cost Search</option>
+            <option value="ids">Iterative Deepening Search</option>
+            <option value="greedy">Greedy Best-First Search</option>
+            <option value="astar">A* Search</option>
+        </select>
+
+        <button onclick="runSearch()">Find Path</button>
+
+        <div id="error"></div>
+
+        <div id="result" style="display:none;">
+            <h3 id="algo-name"></h3>
+            <p id="algo-main-idea"></p>
+            <div class="stat"><strong>Node Selection:</strong> <span id="algo-node-selection"></span></div>
+            <div class="stat"><strong>Information Used:</strong> <span id="algo-info-used"></span></div>
+            <hr>
+            <div class="stat"><strong>Path Cost:</strong> <span id="path-cost"></span> km</div>
+            <div class="stat"><strong>Nodes Expanded:</strong> <span id="nodes-expanded"></span></div>
+            <div class="stat"><strong>Path:</strong> <span id="path-list"></span></div>
+        </div>
+    </div>
+
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        const map = L.map('map').setView([41.85, -87.9], 9);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        let allMarkers = [];
+        let pathLine = null;
+
+        fetch('/api/graph')
+            .then(res => res.json())
+            .then(data => {
+                data.nodes.forEach(node => {
+                    const marker = L.circleMarker([node.lat, node.lon], {
+                        radius: 5, color: '#555', fillColor: '#555', fillOpacity: 0.6
+                    }).addTo(map).bindPopup(node.name);
+                    allMarkers.push(marker);
+                });
+
+                data.edges.forEach(edge => {
+                    const fromNode = data.nodes.find(n => n.name === edge.from);
+                    const toNode = data.nodes.find(n => n.name === edge.to);
+                    if (fromNode && toNode) {
+                        L.polyline(
+                            [[fromNode.lat, fromNode.lon], [toNode.lat, toNode.lon]],
+                            { color: '#aaa', weight: 2, opacity: 0.5 }
+                        ).addTo(map);
+                    }
+                });
+            });
+
+        function runSearch() {
+            const start = document.getElementById('start').value;
+            const goal = document.getElementById('goal').value;
+            const algorithm = document.getElementById('algorithm').value;
+            const errorDiv = document.getElementById('error');
+            const resultDiv = document.getElementById('result');
+
+            errorDiv.textContent = '';
+            resultDiv.style.display = 'none';
+
+            if (start === goal) {
+                errorDiv.textContent = 'Start and goal must be different locations.';
+                return;
+            }
+
+            fetch('/api/search', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ start, goal, algorithm })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.error) {
+                        errorDiv.textContent = data.error;
+                        return;
+                    }
+
+                    if (pathLine) {
+                        map.removeLayer(pathLine);
+                    }
+
+                    const latlngs = data.path_coords.map(p => [p.lat, p.lon]);
+                    pathLine = L.polyline(latlngs, { color: '#2563eb', weight: 5 }).addTo(map);
+                    map.fitBounds(pathLine.getBounds(), { padding: [40, 40] });
+
+                    document.getElementById('algo-name').textContent = data.algorithm_info.name;
+                    document.getElementById('algo-main-idea').textContent = data.algorithm_info.main_idea;
+                    document.getElementById('algo-node-selection').textContent = data.algorithm_info.node_selection;
+                    document.getElementById('algo-info-used').textContent = data.algorithm_info.information_used;
+                    document.getElementById('path-cost').textContent = data.cost;
+                    document.getElementById('nodes-expanded').textContent = data.nodes_expanded;
+                    document.getElementById('path-list').textContent = data.path.join(' → ');
+
+                    resultDiv.style.display = 'block';
+                })
+                .catch(err => {
+                    errorDiv.textContent = 'Request failed: ' + err;
+                });
+        }
+    </script>
+
+</body>
+
+</html>
